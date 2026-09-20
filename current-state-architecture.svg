@@ -1,0 +1,123 @@
+<svg viewBox="0 0 1200 880" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowSlow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="880" fill="#ffffff"/>
+
+  <text x="40" y="44" font-size="23" font-weight="700" fill="#0f172a">Current State — What Exists Live Today</text>
+  <text x="40" y="68" font-size="13" fill="#64748b">Caseware engagement / product-template landscape, as described in the exercise brief. No maintenance window; all components are in production.</text>
+
+  <!-- ============ ACTORS ============ -->
+  <rect x="40" y="110" width="200" height="86" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="140" y="140" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">Content Teams</text>
+  <text x="140" y="161" font-size="12" fill="#475569" text-anchor="middle">per market / region</text>
+  <text x="140" y="180" font-size="12" fill="#475569" text-anchor="middle">author + publish templates</text>
+
+  <rect x="40" y="600" width="200" height="104" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="140" y="630" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">Firm Users</text>
+  <text x="140" y="651" font-size="12" fill="#475569" text-anchor="middle">~4,000 firms</text>
+  <text x="140" y="669" font-size="12" fill="#475569" text-anchor="middle">non-technical practitioners</text>
+  <text x="140" y="690" font-size="12" fill="#475569" text-anchor="middle">apply / decline decisions</text>
+
+  <!-- ============ PRODUCT TEMPLATE DB ============ -->
+  <rect x="330" y="96" width="390" height="212" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="352" y="126" font-size="16" font-weight="700" fill="#1e3a8a">Product Template Database</text>
+  <text x="352" y="147" font-size="12" font-style="italic" fill="#1d4ed8">Global · shared across all firms · not firm-specific</text>
+  <line x1="352" y1="158" x2="698" y2="158" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="352" y="180" font-size="12.5" fill="#1e3a8a">• All versions of all templates (~40 products)</text>
+  <text x="352" y="201" font-size="12.5" fill="#1e3a8a">• Template = zip archive of structured JSON</text>
+  <text x="352" y="222" font-size="12.5" fill="#1e3a8a">• Fast read by (templateID, version)</text>
+  <text x="352" y="243" font-size="12.5" fill="#1e3a8a">• Publish = write to this DB (~1/week/product)</text>
+  <text x="352" y="264" font-size="12.5" fill="#1e3a8a">• Versions branch by market; can be withdrawn</text>
+  <text x="352" y="288" font-size="12.5" font-weight="700" fill="#b91c1c">✕ Holds NO engagement-file information</text>
+
+  <!-- ============ DIFF CAPABILITY ============ -->
+  <rect x="820" y="96" width="340" height="150" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="842" y="126" font-size="15" font-weight="700" fill="#0f172a">Template Diff Capability</text>
+  <text x="842" y="146" font-size="12" font-style="italic" fill="#475569">available, not yet wired to any UX</text>
+  <line x1="842" y1="157" x2="1138" y2="157" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="842" y="179" font-size="12.5" fill="#334155">• Compares 2 versions of same template</text>
+  <text x="842" y="200" font-size="12.5" fill="#334155">• Quick + reliable → structural JSON diff</text>
+  <text x="842" y="224" font-size="12.5" font-weight="700" fill="#b45309">✕ Output is not human-readable</text>
+
+  <!-- ============ ENGAGEMENT MANAGEMENT SYSTEM ============ -->
+  <rect x="330" y="386" width="390" height="318" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="352" y="416" font-size="16" font-weight="700" fill="#14532d">Engagement Management System</text>
+  <text x="352" y="437" font-size="12" font-style="italic" fill="#15803d">session pods · single owner of three responsibilities</text>
+  <line x1="352" y1="448" x2="698" y2="448" stroke="#bbf7d0" stroke-width="1"/>
+
+  <rect x="352" y="462" width="346" height="44" rx="6" fill="#ffffff" stroke="#86efac"/>
+  <text x="366" y="480" font-size="12.5" font-weight="700" fill="#14532d">1 · Engagement creation</text>
+  <text x="366" y="498" font-size="11.5" fill="#166534">reads template from Product Template DB</text>
+
+  <rect x="352" y="514" width="346" height="60" rx="6" fill="#ffffff" stroke="#86efac"/>
+  <text x="366" y="532" font-size="12.5" font-weight="700" fill="#14532d">2 · Load / rehydrate engagement</text>
+  <text x="366" y="550" font-size="11.5" fill="#166534">stored form → in-memory in pod; volatile</text>
+  <text x="366" y="566" font-size="11.5" fill="#166534">financial fields established at load time</text>
+
+  <rect x="352" y="582" width="346" height="44" rx="6" fill="#ffffff" stroke="#86efac"/>
+  <text x="366" y="600" font-size="12.5" font-weight="700" fill="#14532d">3 · Process apply / decline decision</text>
+  <text x="366" y="618" font-size="11.5" fill="#166534">(applying content itself is out of scope)</text>
+
+  <rect x="352" y="638" width="346" height="48" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="366" y="657" font-size="12.5" font-weight="700" fill="#b91c1c">HARD CONSTRAINT: ~1 minute per file load</text>
+  <text x="366" y="675" font-size="11.5" fill="#b91c1c">owned by another team · limited capacity</text>
+
+  <!-- ============ ENGAGEMENT DATABASES ============ -->
+  <rect x="820" y="386" width="340" height="318" rx="10" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+  <text x="842" y="416" font-size="16" font-weight="700" fill="#713f12">Engagement File Databases</text>
+  <text x="842" y="437" font-size="12" font-style="italic" fill="#a16207">customer-specific · region-pinned · isolated</text>
+  <line x1="842" y1="448" x2="1138" y2="448" stroke="#fde68a" stroke-width="1"/>
+
+  <rect x="842" y="462" width="296" height="38" rx="6" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="856" y="486" font-size="12.5" fill="#713f12">Region: default / US</text>
+  <rect x="842" y="506" width="296" height="38" rx="6" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="856" y="530" font-size="12.5" fill="#713f12">Region: EU — data must stay in-region</text>
+  <rect x="842" y="550" width="296" height="38" rx="6" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="856" y="574" font-size="12.5" fill="#713f12">Region: Canada — data must stay in-region</text>
+
+  <text x="842" y="614" font-size="12.5" fill="#713f12">• ~800,000 active engagement files</text>
+  <text x="842" y="635" font-size="12.5" fill="#713f12">• Median firm ~40 · largest ~40,000</text>
+  <text x="842" y="656" font-size="12.5" fill="#713f12">• Client-confidential audit workpapers</text>
+  <text x="842" y="680" font-size="12.5" font-weight="700" fill="#b45309">✕ Stored (templateID, version) not queryable</text>
+
+  <!-- ============ FLOWS ============ -->
+  <!-- Content teams -> template db -->
+  <path d="M 240 153 L 322 180" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="246" y="140" font-size="11.5" font-weight="600" fill="#334155">publish update</text>
+  <text x="246" y="126" font-size="11" fill="#64748b">~1×/week/product</text>
+
+  <!-- users -> ems -->
+  <path d="M 240 645 L 322 610" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="244" y="592" font-size="11.5" font-weight="600" fill="#334155">open file, decide</text>
+
+  <!-- ems -> template db (read on create) -->
+  <path d="M 470 386 L 470 308" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="482" y="336" font-size="11.5" font-weight="600" fill="#334155">read template on create</text>
+  <text x="482" y="352" font-size="11" fill="#64748b">by (templateID, version)</text>
+
+  <!-- ems <-> engagement dbs -->
+  <path d="M 720 545 L 812 545" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#arrowSlow)" marker-start="url(#arrowSlow)"/>
+  <text x="766" y="527" font-size="11.5" font-weight="700" fill="#b45309" text-anchor="middle">load / persist</text>
+  <text x="766" y="512" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">~60s per file</text>
+
+  <!-- template db -> diff -->
+  <path d="M 720 171 L 812 171" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="6 4"/>
+  <text x="766" y="160" font-size="11" fill="#64748b" text-anchor="middle">any 2 versions</text>
+
+  <!-- hooks note -->
+  <rect x="330" y="330" width="390" height="0" fill="none"/>
+
+  <!-- ============ GAP CALLOUT ============ -->
+  <rect x="40" y="748" width="1120" height="100" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="62" y="776" font-size="14.5" font-weight="700" fill="#991b1b">The gap: nothing today can answer “which engagements have pending updates, and what changed?”</text>
+  <text x="62" y="800" font-size="12.5" fill="#7f1d1d">• No join exists between the global template DB and the per-firm engagement DBs — the two sides share no queryable link.</text>
+  <text x="62" y="820" font-size="12.5" fill="#7f1d1d">• Reading an engagement’s template version means loading it (~1 min) → 800,000 files ≈ 13,300 pod-hours of a capacity-limited, other-team dependency.</text>
+  <text x="62" y="840" font-size="12.5" fill="#7f1d1d">• Diff output is structural JSON, not practitioner-readable. Available extension point: hooks/events on either the template DB or the engagement system.</text>
+</svg>
