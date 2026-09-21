@@ -2,7 +2,7 @@
 
 Show firms which engagement files have pending template updates, with a human-readable summary sufficient to apply or decline. Applying content is out of scope.
 
-*Companions: `target-architecture-diagrams.md` (Figures 1–2), `current-state-architecture.md` (what exists today), `glossary.md`.*
+*Companions: `target-architecture-diagrams.md` (Figures 1–2), `current-state-architecture.md` (what exists today).*
 
 ## 0. Assumptions
 
@@ -20,7 +20,7 @@ Template versions are global; engagement state is per-firm, region-pinned, and c
 
 The global plane owns template facts and never stores a firm or engagement identifier; the regional plane owns firm facts. The Engagement Management System stays the sole writer of engagement truth — the index is derived and has no authority.
 
-Residency then falls out rather than being retrofitted: template content is not firm-specific, so summaries are generated once globally and replicated read-only into the EU and Canada, firm data never leaves its region, and **no engagement content is ever sent to a large language model (LLM)** — in a client-confidential audit domain, the property that makes this approvable. One signal crosses: the **occupancy feed**, the bare set of `(templateId, version)` pairs some engagement occupies, with no firm identifiers or counts.
+Residency then falls out rather than being retrofitted: template content is not firm-specific, so summaries are generated once globally and replicated read-only into the EU and Canada, firm data never leaves its region, and **no engagement content is ever sent to a language model** — in a client-confidential audit domain, the property that makes this approvable. One signal crosses: the **occupancy feed**, the bare set of `(templateId, version)` pairs some engagement occupies, with no firm identifiers or counts.
 
 1. **Fan-out writes nothing per engagement.** A publish writes ~50 rows to Available Updates; the per-engagement answer is a **read-time join** against it. Cost and publish latency scale with live version count, not 800,000 engagements.
 2. **The slow dependency has one caller** — the worker — so **A2**'s budget is enforced in one place. Steady state never calls it.
@@ -65,11 +65,11 @@ Full sweep  800,000 × 60s = 13,333 pod-hours
 
 Thirty-five days of another team's capacity is not a reasonable ask, and this design does not make it: opportunistic capture covers what users touch for free, the sweep takes the rest at whatever rate that team grants, `NOT_YET_CHECKED` being the public burn-down. **The scarce resource is not dollars but another team's capacity.**
 
-**Objectives** (p99 = the 99th percentile, the value 99 % of observations fall below): indicator freshness p99 < 30 s; summary availability p99 < 10 min; glance latency p99 < 300 ms at any firm size; index divergence < 0.1 %; coverage-gate pass rate > 99 %. Every stateful component is derived and rebuildable except the append-only decision log — the only system of record needing backup.
+**Objectives:** indicator freshness p99 < 30 s; summary availability p99 < 10 min; glance latency p99 < 300 ms at any firm size; index divergence < 0.1 %; coverage-gate pass rate > 99 %. Every stateful component is derived and rebuildable except the append-only decision log — the only system of record needing backup.
 
 ## 4. Generating and evaluating the summaries
 
-A publish triggers ~51 independent generations, one per occupied `fromVersion`, each the cumulative diff to the new version. **The language model does phrasing; it does not do selection.** Which JSON (JavaScript Object Notation) paths changed, how they group, and which are material are computed deterministically. A model that decides what is worth mentioning will eventually decide something material is not. **See Figure 2.**
+A publish triggers ~51 independent generations, one per occupied `fromVersion`, each the cumulative diff to the new version. **The language model does phrasing; it does not do selection.** Which JSON paths changed, how they group, and which are material are computed deterministically. A model that decides what is worth mentioning will eventually decide something material is not. **See Figure 2.**
 
 **The coverage gate is mechanical, not a model judging a model.** Every summary item declares the JSON paths it covers; we assert the union equals the changed set. A summary that silently drops a change fails a set comparison, not a subjective evaluation. On failure, retry once, then fall back to a templated summary — duller, but structurally incapable of omitting anything. A golden set of historical version pairs with expert-written expected output guards prompt and model changes; fallback rate is alarmed.
 
